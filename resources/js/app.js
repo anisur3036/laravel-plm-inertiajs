@@ -11,6 +11,8 @@ Vue.use(plugin);
 Vue.use(VueMeta);
 Vue.use(PortalVue);
 Vue.prototype.$route = (...args) => route(...args).url();
+Vue.mixin({ methods: { route }});
+
 
 const app = document.getElementById('app');
 

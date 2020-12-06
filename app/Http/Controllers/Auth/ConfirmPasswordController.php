@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Auth;
 
+use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\ConfirmsPasswords;
@@ -19,7 +21,7 @@ class ConfirmPasswordController extends Controller
     |
     */
 
-    use ConfirmsPasswords;
+    // use ConfirmsPasswords;
 
     /**
      * Where to redirect users when the intended url fails.
@@ -36,5 +38,65 @@ class ConfirmPasswordController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+    }
+
+     /**
+     * Display the password confirmation view.
+     *
+     * @return \Illuminate\View\View
+     */
+    public function showConfirmForm()
+    {
+        return view('auth.passwords.confirm');
+    }
+
+    /**
+     * Confirm the given user's password.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\JsonResponse
+     */
+    public function confirm(Request $request)
+    {
+        $request->validate($this->rules(), $this->validationErrorMessages());
+
+        $this->resetPasswordConfirmationTimeout($request);
+
+        return $request->wantsJson()
+                    ? new JsonResponse([], 204)
+                    : redirect()->intended($this->redirectPath());
+    }
+
+    /**
+     * Reset the password confirmation timeout.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return void
+     */
+    protected function resetPasswordConfirmationTimeout(Request $request)
+    {
+        $request->session()->put('auth.password_confirmed_at', time());
+    }
+
+    /**
+     * Get the password confirmation validation rules.
+     *
+     * @return array
+     */
+    protected function rules()
+    {
+        return [
+            'password' => 'required|password',
+        ];
+    }
+
+    /**
+     * Get the password confirmation validation error messages.
+     *
+     * @return array
+     */
+    protected function validationErrorMessages()
+    {
+        return [];
     }
 }
