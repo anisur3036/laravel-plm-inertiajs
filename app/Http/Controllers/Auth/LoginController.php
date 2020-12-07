@@ -76,7 +76,8 @@ class LoginController extends Controller
         }
 
         if ($this->attemptLogin($request)) {
-            return $this->sendLoginResponse($request);
+            // return $this->sendLoginResponse($request);
+            return redirect('welcome')->with('success', 'Your are successfully login!');
         }
 
         // If the login attempt was unsuccessful we will increment the number of attempts
@@ -85,6 +86,7 @@ class LoginController extends Controller
         $this->incrementLoginAttempts($request);
 
         return $this->sendFailedLoginResponse($request);
+        // return redirect('/welcome')->with('success', 'Your are successfully login.');
     }
 
     /**

@@ -17,6 +17,9 @@ Vue.mixin({ methods: { route }});
 const app = document.getElementById('app');
 
 new Vue({
+		metaInfo: {
+	    titleTemplate: title => (title ? `${title} | PLM Server` : 'PLM Server')
+	  },
     render: (h) =>
       h(App, {
           props: {

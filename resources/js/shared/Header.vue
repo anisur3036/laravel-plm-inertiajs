@@ -90,9 +90,10 @@
         >
           <img
             class="h-full w-full object-cover"
-            src="https://images.unsplash.com/photo-1528892952291-009c663ce843?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=296&q=80"
-            alt="Your avatar"
+            src="https://avatars2.githubusercontent.com/u/5952472?s=460&u=ad9e78fab6589d22c5d1bd358b1e65ff011d7ab2&v=4"
+            alt="Anisur Rahman"
           />
+
         </button>
 
         <div
