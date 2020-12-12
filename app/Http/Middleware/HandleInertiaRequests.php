@@ -43,13 +43,18 @@ class HandleInertiaRequests extends Middleware
                         'id' => $request->user()->id,
                         'email' => $request->user()->email,
                         'name' => $request->user()->name,
-                    ] : null,
+                    ] : null
                 ];
             },
             'flash' => function () use ($request) {
                 return [
                     'success' => $request->session()->get('success'),
-                    'error' => $request->session()->get('error'),
+                    'error' => $request->session()->get('error')
+                ];
+            },
+            'popstate' => function () use ($request) {
+                return [
+                    'auth' => $request->user() ? true : false
                 ];
             },
         ]);

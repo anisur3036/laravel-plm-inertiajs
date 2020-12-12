@@ -10,7 +10,14 @@
 		metaInfo: { title: 'Welcome' },
 		components: {
 			AppLayout,
-		}
+		},
+		created() {
+      window.addEventListener('popstate', () => {
+        if(this.$page.props.popstate.back) {
+        	window.location.href= '/';
+        }
+      })
+    },
 	}
 </script>
 

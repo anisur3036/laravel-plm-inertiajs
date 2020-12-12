@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\InvoicesController;
+use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -16,9 +18,6 @@ use Inertia\Inertia;
 */
 
 
-Route::get('/welcome', function () {
-    return Inertia::render('Welcome');
-})->middleware('auth');
 
 Route::get('/', [LoginController::class, 'showLoginForm'])
     ->name('login')
@@ -28,7 +27,20 @@ Route::post('login', [LoginController::class, 'login'])
     ->name('login.attempt')
     ->middleware('guest');
 
+Route::get('users/create', [UsersController::class, 'show'])
+	->name('users.create.form')
+	->middleware('auth');
+
+Route::post('users/create', [UsersController::class, 'store'])
+	->name('users.create')
+	->middleware('auth');
+
 Route::post('logout', [LoginController::class, 'logout'])
     ->name('logout');
 
+Route::get('/welcome', function () {
+    return Inertia::render('Welcome');
+})->middleware('auth');
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::resource('/invoices', InvoicesController::class)->middleware('auth');

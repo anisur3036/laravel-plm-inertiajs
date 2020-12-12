@@ -1,5 +1,5 @@
 <template>
-  <div class="flex justify-center items-center h-screen bg-gray-200 px-6">
+  <div v-cloak v-if="!back" class="flex justify-center items-center h-screen bg-gray-200 px-6">
     <div class="p-6 max-w-sm w-full bg-white shadow-md rounded-md">
       <div class="flex justify-center items-center">
         <img class="w-10 h-10 mr-2" src="img/SKCL-Logo.png" alt="SKCL" />
@@ -73,7 +73,8 @@ export default {
     // Logo,
   },
   props: {
-    errors: Object
+    errors: Object,
+    back: Boolean
   },
   data() {
     return {
@@ -85,6 +86,15 @@ export default {
       }
     };
   },
+  mounted() {
+      window.addEventListener('popstate', () => {
+        if(this.$page.props.popstate.auth) {
+          window.location.href = '/welcome'; 
+        } else {
+          window.location.href = '/'; 
+        }
+      })
+    },
   methods: {
     submit() {
       const data = {
