@@ -1,10 +1,11 @@
 <?php
 
-use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\InvoicesController;
-use App\Http\Controllers\UsersController;
-use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UsersController;
+use App\Http\Controllers\InvoicesController;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\CriticalPathController;
 
 /*
 |--------------------------------------------------------------------------
@@ -44,3 +45,4 @@ Route::get('/welcome', function () {
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::resource('/invoices', InvoicesController::class)->middleware('auth');
+Route::resource('/criticalpaths', CriticalPathController::class)->middleware('auth');
